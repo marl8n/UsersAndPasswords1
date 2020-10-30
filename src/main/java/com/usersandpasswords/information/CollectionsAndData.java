@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -82,6 +83,7 @@ public class CollectionsAndData {
                     );
                 }
             }
+            r.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CollectionsAndData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -111,6 +113,7 @@ public class CollectionsAndData {
                     );
                 }
             }
+            r.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CollectionsAndData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -138,8 +141,29 @@ public class CollectionsAndData {
                     );
                 }
             }
+            r.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CollectionsAndData.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CollectionsAndData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public static void saveInfo(){
+        String doc = "";
+        try {
+            FileWriter w = new FileWriter(filePath);
+            for(int i = 0; i < clients.size(); i++){
+                doc = doc.concat(clients.get(i).toString());
+            }
+            for(int i = 0; i < employeds.size(); i++ ) {
+                doc = doc.concat(employeds.get(i).toString());
+            }
+            for(int i = 0; i < products.size(); i++ ) {
+                doc = doc.concat(products.get(i).toString());
+            }
+            w.close();
         } catch (IOException ex) {
             Logger.getLogger(CollectionsAndData.class.getName()).log(Level.SEVERE, null, ex);
         }
