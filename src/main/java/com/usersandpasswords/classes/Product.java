@@ -13,11 +13,13 @@ public class Product {
     protected String id;
     protected String name;
     protected int quantity;
+    protected Double price;
 
-    public Product(String id, String name, int quantity) {
+    public Product(String id, String name, int quantity, Double price) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public String getId() {
@@ -42,5 +44,25 @@ public class Product {
     
     public int getQuantity(){
         return this.quantity;
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "product," +
+                id + "," +
+                name + "," +
+                quantity + "," +
+                price + "\n\r";
+    }
+    
+    public Object[] getInfoAsObjectArray () {
+        Object[] o = new Object[4];
+        o[0] = this.id;
+        o[1] = this.name;
+        o[2] = this.price;
+        o[3] = this.quantity;
+        
+        return o;
     }
 }

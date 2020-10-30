@@ -135,6 +135,7 @@ public class SingUpClient extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "No se ha podido agregar a " + tfName.getText());
         }
+        
         clearTF();
     }//GEN-LAST:event_singupActionPerformed
 

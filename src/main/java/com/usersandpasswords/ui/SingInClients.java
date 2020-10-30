@@ -4,18 +4,27 @@
  * and open the template in the editor.
  */
 package com.usersandpasswords.ui;
+        
+import com.usersandpasswords.classes.Client;
+import static com.usersandpasswords.information.CollectionsAndData.getClients;
+import static com.usersandpasswords.information.CollectionsAndData.getClientsAsStream;
+import static com.usersandpasswords.information.CollectionsAndData.initializeFiles;
+import java.util.Arrays;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author MIDP9
  */
-public class SingIn extends javax.swing.JInternalFrame {
+public class SingInClients extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form SingIn
      */
-    public SingIn() {
+    public SingInClients() {
         initComponents();
+        initializeFiles();
     }
 
     /**
@@ -27,9 +36,9 @@ public class SingIn extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        tfUsername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        tfPassword = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -41,6 +50,11 @@ public class SingIn extends javax.swing.JInternalFrame {
         jLabel2.setText("Password");
 
         jButton1.setText("Sing in");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -55,8 +69,8 @@ public class SingIn extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfPassword)
+                            .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jButton1)
@@ -68,11 +82,11 @@ public class SingIn extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
@@ -82,12 +96,39 @@ public class SingIn extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(validateFields()) {
+            LinkedList<Client> ourClients = getClients();
+            for ( int i = 0; i < ourClients.size(); i++) {
+                if ( validateInfo(ourClients.get(i)) ){
+                    JOptionPane.showMessageDialog(rootPane, "Has iniciado sesion");
+                }
+            }
+            
+            clearTF();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private boolean validateFields() {
+        return !tfUsername.getText().isEmpty() &&
+                tfPassword.getPassword().length > 0;
+    }
+    
+    private boolean validateInfo(Client client){
+        return client.getName() == tfUsername.getText() &&
+                Arrays.equals(client.getPassword().toCharArray(), tfPassword.getPassword());
+    }
+    
+    private void clearTF(){
+        tfUsername.setText("");
+        tfPassword.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField tfPassword;
+    private javax.swing.JTextField tfUsername;
     // End of variables declaration//GEN-END:variables
 }

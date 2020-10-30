@@ -36,6 +36,10 @@ public abstract class User {
     public LocalDate getBirthDate() {
         return birthDate;
     }
+    
+    public String getPassword() {
+        return this.password;
+    }
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;

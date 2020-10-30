@@ -5,21 +5,27 @@
  */
 package com.usersandpasswords.ui;
 
+import static com.usersandpasswords.information.CollectionsAndData.initializeFiles;
+import static com.usersandpasswords.information.CollectionsAndData.saveInfo;
+
 /**
  *
  * @author MIDP9
  */
 public class MainUI extends javax.swing.JFrame {
 
-    SingIn si = null;
+    SingInClients sic = null;
     SingUpEmployed sue= null;
     SingUpClient suc = null;
+    AddProducts ap = null;
+    TableOfProducts tp = null;
     
     /**
      * Creates new form MainUI
      */
     public MainUI() {
         initComponents();
+        initializeFiles();
     }
 
     /**
@@ -36,7 +42,10 @@ public class MainUI extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         mbSingUpEmployed = new javax.swing.JMenuItem();
-        mbSingIn = new javax.swing.JMenuItem();
+        btnAddProducts = new javax.swing.JMenuItem();
+        mbSingInClients = new javax.swing.JMenuItem();
+        showProducts = new javax.swing.JMenuItem();
+        btnClose = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,8 +78,38 @@ public class MainUI extends javax.swing.JFrame {
         });
         jMenu1.add(mbSingUpEmployed);
 
-        mbSingIn.setText("Sing in");
-        jMenu1.add(mbSingIn);
+        btnAddProducts.setText("Add products");
+        btnAddProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddProductsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnAddProducts);
+
+        mbSingInClients.setText("Sing  in cliets");
+        mbSingInClients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mbSingInClientsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mbSingInClients);
+
+        showProducts.setText("Show products");
+        showProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showProductsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(showProducts);
+
+        btnClose.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        btnClose.setText("close");
+        btnClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnClose);
 
         jMenuBar1.add(jMenu1);
 
@@ -108,6 +147,38 @@ public class MainUI extends javax.swing.JFrame {
         sue.show();
     }//GEN-LAST:event_mbSingUpEmployedActionPerformed
 
+    private void btnAddProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductsActionPerformed
+        if (ap == null || ap.isClosed() ) {
+            ap = new AddProducts();
+            dp1.add(ap);
+        }
+        
+        ap.show();
+    }//GEN-LAST:event_btnAddProductsActionPerformed
+
+    private void mbSingInClientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mbSingInClientsActionPerformed
+        if (sic == null || sic.isClosed() ) {
+            sic = new SingInClients();
+            dp1.add(sic);
+        }
+        
+        sic.show();
+    }//GEN-LAST:event_mbSingInClientsActionPerformed
+
+    private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
+        saveInfo();
+        System.exit(0);
+        //JOptionPane.showMessageDialog(rootPane, clients.get(0));
+    }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void showProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showProductsActionPerformed
+        if ( tp == null || tp.isClosed() ){
+            tp = new TableOfProducts();
+            dp1.add(tp);
+        }
+        tp.show();
+    }//GEN-LAST:event_showProductsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -144,11 +215,14 @@ public class MainUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnAddProducts;
+    private javax.swing.JMenuItem btnClose;
     private javax.swing.JDesktopPane dp1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem mbSingIn;
+    private javax.swing.JMenuItem mbSingInClients;
     private javax.swing.JMenuItem mbSingUpEmployed;
+    private javax.swing.JMenuItem showProducts;
     // End of variables declaration//GEN-END:variables
 }

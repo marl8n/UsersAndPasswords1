@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,9 +33,19 @@ public class CollectionsAndData {
     private static String fileName = "data.txt";
     private static String filePath = directory + File.separator + fileName;
     
-    private static LinkedList<Client> clients = new LinkedList<Client>();
-    private static LinkedList<Employed> employeds = new LinkedList<Employed>();
-    private static LinkedList<Product> products = new LinkedList<Product>();
+    public static LinkedList<Client> clients = new LinkedList<Client>();
+    public static LinkedList<Employed> employeds = new LinkedList<Employed>();
+    public static LinkedList<Product> products = new LinkedList<Product>();
+    
+    public static LinkedList<Client> getClients() {
+        return clients;
+    }
+    public static LinkedList<Product> getProducts() {
+        return products;
+    }
+    public static LinkedList<Employed> getEmployeds() {
+        return employeds;
+    }
     
     public static void addEmployed(Employed employed){
         employeds.add(employed);
@@ -62,7 +73,7 @@ public class CollectionsAndData {
     
     public static void readFileClients(){
         
-        Pattern pat = Pattern.compile("^client,\\w+,\\w+,\\w+,\\w+,\\w$");
+        Pattern pat = Pattern.compile("^client.*$");
         
         try {
             FileReader r = new FileReader(filePath);
@@ -92,7 +103,7 @@ public class CollectionsAndData {
     }
     
     public static void readFileEmployed() {
-        Pattern pat = Pattern.compile("^employed,\\w+,\\w+,\\w+,\\w+,\\w+");
+        Pattern pat = Pattern.compile("^employed.*$");
         
         try {
             FileReader r = new FileReader(filePath);
@@ -122,7 +133,7 @@ public class CollectionsAndData {
     }
     
     public static void readFileProduct() {
-        Pattern pat = Pattern.compile("^product,\\w+,\\w+,\\w+$");
+        Pattern pat = Pattern.compile("^product.*$");
         try {
             FileReader r = new FileReader(filePath);
             BufferedReader br = new BufferedReader(r);
@@ -136,7 +147,8 @@ public class CollectionsAndData {
                             new Product(
                             dataProduct[1],
                             dataProduct[2],
-                            Integer.valueOf(dataProduct[3])
+                            Integer.valueOf(dataProduct[3]),
+                            Double.valueOf(dataProduct[4])
                             )
                     );
                 }
@@ -163,9 +175,16 @@ public class CollectionsAndData {
             for(int i = 0; i < products.size(); i++ ) {
                 doc = doc.concat(products.get(i).toString());
             }
+            w.write(doc);
             w.close();
         } catch (IOException ex) {
             Logger.getLogger(CollectionsAndData.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static void initializeFiles() {
+        readFileProduct();
+        readFileClients();
+        readFileEmployed();
     }
 }

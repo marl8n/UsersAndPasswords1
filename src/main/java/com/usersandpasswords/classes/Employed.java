@@ -5,6 +5,7 @@
  */
 package com.usersandpasswords.classes;
 
+import static com.usersandpasswords.information.ageUtils.AgeUtils.parseDateToString;
 import java.time.LocalDate;
 
 /**
@@ -31,6 +32,16 @@ public class Employed extends User{
 
     public void setDpi(String dpi) {
         this.dpi = dpi;
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "employed," +
+                dpi + "," +
+                name + "," +
+                parseDateToString.apply(birthDate) + "," +
+                password + "\n\r";
     }
     
     

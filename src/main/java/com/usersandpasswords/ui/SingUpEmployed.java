@@ -133,6 +133,8 @@ public class SingUpEmployed extends javax.swing.JInternalFrame {
                     String.valueOf(tfPassword.getPassword())
             ));
         }
+        
+        clearTF();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean authenticate(){

@@ -5,6 +5,9 @@
  */
 package com.usersandpasswords.ui;
 
+import com.usersandpasswords.classes.Product;
+import static com.usersandpasswords.information.CollectionsAndData.addProduct;
+
 /**
  *
  * @author MIDP9
@@ -34,6 +37,8 @@ public class AddProducts extends javax.swing.JInternalFrame {
         tfCode = new javax.swing.JTextField();
         tfQuantity = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
+        tfPrice = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Agregar producto");
@@ -51,6 +56,8 @@ public class AddProducts extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setText("Price");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -58,19 +65,21 @@ public class AddProducts extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(btnAdd))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(tfName)
                             .addComponent(tfCode)
-                            .addComponent(tfQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(btnAdd)))
+                            .addComponent(tfQuantity))))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -88,26 +97,56 @@ public class AddProducts extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tfQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAdd)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        //
+        if( validateTF() ) {
+// String id, String name, int quantity)
+            addProduct(
+                    new Product(
+                            tfCode.getText(),
+                            tfName.getText(),
+                            Integer.valueOf(tfQuantity.getText()),
+                            Double.valueOf(tfPrice.getText())
+                    )
+            );
+        }
+        
+        clearTF();
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private boolean validateTF() {
+        return !tfCode.getText().isEmpty() &&
+                !tfName.getText().isEmpty() &&
+                !tfQuantity.getText().isEmpty();
+    }
+    
+    private void clearTF () {
+        tfCode.setText("");
+        tfName.setText("");
+        tfQuantity.setText("");
+        tfPrice.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField tfCode;
     private javax.swing.JTextField tfName;
+    private javax.swing.JTextField tfPrice;
     private javax.swing.JTextField tfQuantity;
     // End of variables declaration//GEN-END:variables
 }

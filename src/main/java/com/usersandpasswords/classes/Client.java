@@ -5,6 +5,7 @@
  */
 package com.usersandpasswords.classes;
 
+import static com.usersandpasswords.information.ageUtils.AgeUtils.parseDateToString;
 import java.time.LocalDate;
 
 /**
@@ -24,11 +25,6 @@ public class Client extends User {
     public String getInfoAsString() {
         return "Name: " + this.name + " ";
     }
-    
-    public Client(String nit, String name, LocalDate birthDate, Integer age, String password) {
-        super(name, birthDate, password);
-        this.nit = nit;
-    }
 
     public String getNit() {
         return nit;
@@ -36,6 +32,15 @@ public class Client extends User {
 
     public void setNit(String nit) {
         this.nit = nit;
+    }
+
+    @Override
+    public String toString() {
+        return "client," +
+                nit + "," +
+                name + "," +
+                parseDateToString.apply(birthDate) + "," +
+                password + "\n\r";
     }
     
     
